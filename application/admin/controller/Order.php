@@ -54,7 +54,7 @@ class Order extends Base
         }
         $order = new OrderService();
         $success = $order->delivery($id);
-        if(array_key_exists('code',$success) && $success['code'] == 0){
+        if(is_array($success) && $success['code'] == 0){
             $this->result(null,$success['code'],$success['msg']);
         }else{
             $this->result(null,1,'success');
