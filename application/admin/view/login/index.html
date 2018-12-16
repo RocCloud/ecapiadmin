@@ -1,0 +1,94 @@
+{include file="public/_meta" }
+  <link href="__STATIC__/hadmin/static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
+  <title>后台登录 </title>
+</head>
+<body>
+<input type="hidden" id="TenantId" name="TenantId" value="" />
+
+<div class="loginWraper">
+  <div id="loginform" class="loginBox">
+    <div class="msg"></div>
+    <form class="form form-horizontal" >
+      <div class="row cl">
+        <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+        <div class="formControls col-xs-8">
+          <input id="username" name="username" type="text" placeholder="用户名" AUTOCOMPLETE="OFF" class="input-text size-L" value="">
+        </div>
+      </div>
+      <div class="row cl">
+        <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+        <div class="formControls col-xs-8">
+          <input id="password" name="password" type="password" placeholder="密码" AUTOCOMPLETE="OFF" class="input-text size-L" value="">
+        </div>
+      </div>
+      <div class="row cl">
+        <div class="formControls col-xs-8 col-xs-offset-3">
+          <input class="input-text size-L" type="text" placeholder="验证码"  name="code" value="" id="code" style="width:150px;" >
+          <img src="/captcha" alt="点击更新验证码" onclick="reloadCode(this)"/>
+          </div>
+      </div>
+      <div class="row cl">
+        <div class="formControls col-xs-8 col-xs-offset-3">
+
+        </div>
+      </div>
+      <div class="row cl">
+        <div class="formControls col-xs-8 col-xs-offset-3">
+          <input id="login-btn"  name="" type="button" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+          <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="footer">singwa-app-admin</div>
+{include file="public/_footer" }
+
+<script type="text/javascript">
+    function reloadCode(obj) {
+        obj.src="/captcha?id=" + Math.random();
+    }
+
+    $(function(){
+        $('#login-btn').on('click',function(){
+            if($('#username').val() == ''){
+                $('.msg').html('用户名不能为空');
+                return;
+            }
+            if($('#password').val() == ''){
+                $('.msg').html('密码不能为空');
+                return;
+            }
+            if($('#code').val() == ''){
+                $('.msg').html('验证码不能为空');
+                return;
+            }
+
+            //发送ajax请求
+            var data = {
+                'username': $('#username').val(),
+                'password': $('#password').val(),
+                'code': $('#code').val()
+            };
+            $.ajax({
+                'url':"{:url('Login/check')}",
+                'type':'post',
+                'data':data,
+                'dataType':'json',
+                'success':function(response){
+                    console.log(response);
+                    //判断结果并处理
+                    if(response.code != 1){
+                        layer.alert(response.msg);
+                    }else{
+                        //登录成功，跳转到后台首页
+                        location.href = "{:url('Index/index')}";
+                    }
+                }
+            });
+
+        });
+    })
+</script>
+</body>
+</html>

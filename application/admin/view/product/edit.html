@@ -1,0 +1,361 @@
+<!--header-->
+{include file="public/_meta" /}
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/webuploader/webuploader.css" />
+</head>
+<body>
+<article class="page-container">
+  <form class="form form-horizontal" id="form-singwaapp" url="{:url('Product/edit')}">
+    <input type="hidden" name="id" value="{$product['id']}">
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品名：</label>
+      <div class="formControls col-xs-4 col-sm-3">
+        <input type="text" class="input-text" value="{$product['name']}" placeholder="" id="name" name="name">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-2">商品价格：</label>
+      <div class="formControls col-xs-4 col-sm-3">
+        <input type="text" class="input-text" value="{$product['price']}" placeholder="" id="price" name="price">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-2">库存量：</label>
+      <div class="formControls col-xs-4 col-sm-3">
+        <input type="text" class="input-text" value="{$product['stock']}" placeholder="" id="stock" name="stock">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
+      <div class="formControls col-xs-4 col-sm-3"> <span class="select-box">
+				<select name="category_id" class="select">
+                  {volist name='category' id='v'}
+                  <option value="{$v['id']}" {if condition="$v['id'] eq $product['category_id']"} selected="selected" {/if}>{$v['name']}</option>
+                  {/volist}
+                </select>
+				</span>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-2">头图：</label>
+      <div class="formControls col-xs-4 col-sm-3">
+        <span>修改前：</span>
+        <img class="size-125" src="{$product['main_img_url']|imageUrl=###}" />
+      </div>
+      <div class="formControls col-xs-4 col-sm-1">
+        <div class="size-125 my_center">修改后：</div>
+      </div>
+      <div class="formControls col-xs-4 col-sm-3">
+        <!--<input id="file_upload"  type="file" multiple="true" >-->
+        <!--<img style="display: none" id="upload_org_code_img" src="" width="150" height="150">-->
+        <!--<input id="file_upload_image" name="image" type="hidden" multiple="true" value="">-->
+        <div id="uploader">
+          <!--用来存放item-->
+          <div id="fileList" class="uploader-list"></div>
+          <div id="filePicker">选择图片</div>
+          <!--给webuploader使用的隐藏域-->
+          <input type="hidden" name="img_id" id="img_id" value="{$product['img_id']}"/>
+          <input type="hidden" name="main_img_url" id="main_img_url" value=""/>
+        </div>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>产品参数：</label>
+      <div class="formControls col-xs-1 col-sm-1">
+        <span class="text-20size" id="add_property"><i class="Hui-iconfont">&#xe600;</i></span>&ensp;&ensp;&ensp;
+        <span class="text-20size hidden-self" id="del_property"><i class="Hui-iconfont">&#xe6a1;</i></span>
+      </div>
+      <input type="hidden" value="" id="property_names" name="property_names"><input type="hidden" value="" id="property_details" name="property_details">
+    </div>
+    <div class="row cl">
+      <div class="formControls col-xs-1 col-sm-1 col-xs-offset-4 col-sm-offset-2">
+        <span>修改前：</span>
+      </div>
+    </div>
+    {volist name="product['property']" id="v"}
+    <div class="row cl">
+      <div class="formControls col-xs-1 col-sm-1 col-xs-offset-4 col-sm-offset-3">
+        <span>{$v['name']}：</span><span>{$v['detail']}</span>
+      </div>
+    </div>
+    {/volist}
+    <div class="row cl">
+      <div class="formControls col-xs-1 col-sm-1 col-xs-offset-4 col-sm-offset-2">
+        <span>修改后：</span>
+      </div>
+    </div>
+    <div id="property_list">
+      <div class="row cl">
+        <div class="formControls col-xs-4 col-sm-2 col-xs-offset-4 col-sm-offset-2">
+          <input type="text" class="input-text property_name" value="" placeholder="参数名：例，保质期" />
+        </div>
+        <div class="formControls col-xs-4 col-sm-3">
+          <input type="text" class="input-text property_detail" value="" placeholder="参数值：例，半年" />
+        </div>
+      </div>
+    </div>
+    <div class="row cl">
+      <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+        <button  class="btn btn-secondary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+        <button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+      </div>
+    </div>
+  </form>
+</article>
+
+<!--header-->
+{include file="public/_footer" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/hadmin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__STATIC__/hadmin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__STATIC__/hadmin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/webuploader/webuploader.js"></script>
+<script type="text/javascript">
+    var swf = '__PUBLIC__/static/admin/webuploader/Uploader.swf';
+    var image_upload_url = "{:url('admin/Upload/uploadToLocalhost')}";
+    var image_id = "#main_img_url";
+    // 图片上传demo
+    jQuery(function() {
+        var $ = jQuery,
+            $list = $('#fileList'),
+            // 优化retina, 在retina下这个值是2
+            ratio = window.devicePixelRatio || 1,
+
+            // 缩略图大小
+            thumbnailWidth = 100 * ratio,
+            thumbnailHeight = 100 * ratio,
+
+            // Web Uploader实例
+            uploader;
+
+        // 初始化Web Uploader
+        uploader = WebUploader.create({
+
+            // 自动上传。
+            auto: true,
+
+            // swf文件路径
+            swf: swf,
+
+            // 文件接收服务端。
+            server: image_upload_url,
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#filePicker',
+
+            // 只允许选择文件，可选。
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            }
+        });
+
+        // 当有文件添加进来的时候
+        uploader.on( 'fileQueued', function( file ) {
+            var $li = $(
+                '<div id="' + file.id + '" class="file-item thumbnail">' +
+                '<img>' +
+                '<div class="info">' + file.name + '</div>' +
+                '</div>'
+                ),
+                $img = $li.find('img');
+
+            //$list.append( $li ); 追加图片，多图上传
+            $list.html( $li );     //更换图片，单图上传
+
+            // 创建缩略图
+            uploader.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+
+                $img.attr( 'src', src );
+            }, thumbnailWidth, thumbnailHeight );
+        });
+
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on( 'uploadProgress', function( file, percentage ) {
+            var $li = $( '#'+file.id ),
+                $percent = $li.find('.progress span');
+
+            // 避免重复创建
+            if ( !$percent.length ) {
+                $percent = $('<p class="progress"><span></span></p>')
+                    .appendTo( $li )
+                    .find('span');
+            }
+
+            $percent.css( 'width', percentage * 100 + '%' );
+        });
+
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on( 'uploadSuccess', function( file ,res) {
+            $( '#'+file.id ).addClass('upload-state-done');
+            if(res.code == 1){
+                $(image_id).val(res.path);
+                layer.msg(res.msg,{icon:6,time:2000});
+            }
+        });
+
+        // 文件上传失败，现实上传出错。
+        uploader.on( 'uploadError', function( file ) {
+            var $li = $( '#'+file.id ),
+                $error = $li.find('div.error');
+
+            // 避免重复创建
+            if ( !$error.length ) {
+                $error = $('<div class="error"></div>').appendTo( $li );
+            }
+
+            $error.text('上传失败');
+        });
+
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on( 'uploadComplete', function( file ) {
+            $( '#'+file.id ).find('.progress').remove();
+        });
+    });
+</script>
+<script type="text/javascript">
+  $('#add_property').on('click',function () {
+      var $property_row = $(
+          '<div class="row cl">' +
+          '<div class="formControls col-xs-4 col-sm-2 col-xs-offset-4 col-sm-offset-2">' +
+          '<input type="text" class="input-text property_name" value="" placeholder="参数名：例，保质期" />' +
+          '</div>' +
+          '<div class="formControls col-xs-4 col-sm-3">' +
+          '<input type="text" class="input-text property_detail" value="" placeholder="参数值：例，半年" />' +
+          '</div>' +
+          '</div>'
+      );
+      $('#property_list').append( $property_row );
+      check_row();
+  });
+
+  $('#del_property').on('click',function () {
+      $('#property_list .row').eq(-1).remove();
+      check_row();
+  });
+
+  //检验row个数
+  function check_row(){
+      var num = $('#property_list').children('.row').length;
+      if(num > 1){
+          $('#del_property').show();
+      }else {
+          $('#del_property').hide();
+      }
+  }
+  //检验头图是否上传
+  function check_img_is_new() {
+      if ($('#main_img_url').val() == '') {
+          $('#img_id').remove();
+          $('#main_img_url').remove();
+      }
+  }
+
+  //拼接参数 放入property_names  property_details
+  function Splice_property(){
+      var num = $('#property_list').children('.row').length;
+      if(num == 1){
+          if($("#property_list .property_name").val()=='' && $("#property_list .property_detail").val()==''){
+              $('#property_names').remove();
+              $('#property_details').remove();
+              return true;
+          }
+      }
+
+      var names = $("#property_list .property_name"),
+          details = $("#property_list .property_detail"),
+          str_name = '',
+          str_details = '',
+          res = true;
+
+      $.each(names,function(index,value){
+          if($(value).val()!=''){
+              str_name += $(value).val() + ',';
+          }else {
+              layer.alert('请补全，产品参数的 参数名');
+              res = false;
+              return false;
+          }
+      });
+      $.each(details,function(index,value){
+          if($(value).val()!=''){
+              str_details += $(value).val() + ',';
+          }else {
+              layer.alert('请补全，产品参数的 参数值');
+              res = false;
+              return false;
+          }
+      });
+      if(!res){
+          return false;
+      }
+      str_name=str_name.substring(0,str_name.length-1);
+      str_details=str_details.substring(0,str_details.length-1);
+      $("#property_names").val(str_name);
+      $("#property_details").val(str_details);
+      return true;
+  }
+
+  $(function() {
+      $('.skin-minimal input').iCheck({
+          checkboxClass: 'icheckbox-blue',
+          radioClass: 'iradio-blue',
+          increaseArea: '20%'
+      });
+
+      //表单验证
+      $("#form-singwaapp").validate({
+          rules: {
+              name: {
+                  required: true,
+              },
+              price: {
+                  required: true,
+                  number: true
+              },
+              stock: {
+                  required: true,
+                  digits: true
+              },
+              category_id: {
+                  required: true,
+              },
+          },
+          onkeyup: false,
+          focusCleanup: true,
+          success: "valid",
+          submitHandler: function (form) {
+              if (Splice_property()) {
+                  check_img_is_new();
+
+                  var data = $(form).serialize();
+                  url = $(form).attr('url');
+
+                  $.post(url,data,function (res) {
+                      if(res.code == 0){
+                          layer.msg(res.msg,{icon:5,time:3000});
+                      }else if(res.code == 1){
+                          window.parent.location=res.data.jump_url;
+                          //window.parent.location.reload(); //刷新父页面
+                          var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                          parent.layer.close(index);  // 关闭layer
+                      }
+                  },'JSON');
+              }
+          }
+      });
+  });
+
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+
+</body>
+</html>

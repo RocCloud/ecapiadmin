@@ -1,0 +1,113 @@
+<!--header-->
+{include file="public/_meta" title="娱乐资讯"/}
+
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 资讯管理 <span class="c-gray en">&gt;</span> 资讯列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+  <div class="text-c">
+    <form action="" method="get">
+   <span class="select-box inline">
+    <select name="category_id" class="select">
+          <option value="0">全部分类</option>
+          {volist name="category" id="v"}
+          <option value="{$v['id']}" {if condition="$v['id'] eq $category_id"} selected="selected" {/if}>{$v['name']}</option>
+          {/volist}
+        </select>
+    </span> 日期范围：
+      <input type="text" name="start_time" class="input-text" id="countTimestart" onfocus="selecttime(1)" value="{$start_time}" style="width:120px;" >
+      -
+      <input type="text" name="end_time" class="input-text" id="countTimestart" onfocus="selecttime(1)" value="{$end_time}"  style="width:120px;">
+
+      <input type="text" name="name" id="" value="{$name}" placeholder=" 名称" style="width:250px" class="input-text">
+      <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+    </form>
+  </div>
+
+  <div class="mt-20">
+    <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive" >
+      <thead>
+      <tr class="text-c">
+        <!--<th width="25"><input type="checkbox" name="" value=""></th>-->
+        <th width="80">ID</th>
+        <th>商品名</th>
+        <th width="80">价格</th>
+        <th width="80">分类</th>
+        <th width="80">缩图</th>
+        <th width="140">更新时间</th>
+        <th width="60">发布状态</th>
+        <th width="120">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      {volist name="products" id="v"}
+      <tr class="text-c">
+        <!--<td><input type="checkbox" value="" name=""></td>-->
+        <td>{$v['id']}</td>
+        <td class="text-l"><u style="cursor:pointer" class="text-primary"  title="查看">{$v['name']}</u></td>
+        <td>{$v['price']}</td>
+        <td>{$v['category_id']|geyCatName}</td>
+        <td><img width="60" height="60" class="picture-thumb" src="{$v['main_img_url']|imageUrl=###}"></td>
+        <td>{$v['create_time']}</td>
+        <td class="td-status">{$v['status']|proStatus=$v.id, ###}</td>
+        <td class="f-14 td-manage">
+          <a style="text-decoration:none" class="ml-5" onClick="edit(this)" href="javascript:;" edit_url="{:url('Product/edit',['id'=>$v['id']])}" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+          <a style="text-decoration:none" class="ml-5" onClick="del(this)" href="javascript:;" title="删除" del_url="{:url('Product/delete',['id'=>$v['id']])}"><i class="Hui-iconfont">&#xe6e2;</i></a>
+          <a style="text-decoration:none" class="ml-5" onClick="details(this)" href="javascript:;" details_url="{:url('Product/details',['id'=>$v['id']])}" title="添加详情图"><i class="Hui-iconfont">&#xe613;</i></a>
+        </td>
+      </tr>
+      {/volist}
+      </tbody>
+    </table>
+    <div id="laypage"></div>
+  </div>
+
+</div>
+<!--header-->
+{include file="public/_footer" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/hadmin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/hadmin/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+  //修改商品
+  function edit(obj){
+      var index = layer.open({
+          type: 2,
+          title: $(obj).attr('title'),
+          content: $(obj).attr('edit_url')
+      });
+      layer.full(index);
+  }
+
+    //添加商品详情图
+  function details(obj){
+    var index = layer.open({
+        type: 2,
+        title: $(obj).attr('title'),
+        content: $(obj).attr('details_url')
+    });
+    layer.full(index);
+  }
+
+ var url = '{:url("Product/index")}' + "?{$query}";
+ laypage({
+     cont: 'laypage',
+     pages: '{$pageTotal}',
+     skin: '#5FB878',
+     curr: '{$curr}' || 1,
+     jump:function (e,first) {
+         if(!first){
+             location.href = url + '&page=' + e.curr;
+         }
+     }
+ });
+
+</script>
+<style>
+  .imooc-app .pagination li{display:inline; padding-left:10px;}
+  .pagination .active{color:red}
+  .pagination .disabled{color:#888888}
+</style>
+</body>
+</html>
