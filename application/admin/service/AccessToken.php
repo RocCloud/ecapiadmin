@@ -42,7 +42,7 @@ class AccessToken
     }
 
     //从微信服务器中获取access_token
-    private function getFromWxServer(){
+    private function getFromWxServer(){var_dump(2);die();
         $token = curl_get($this->tokenUrl);
         $token = json_decode($token,true);var_dump($token);die();
         if(!$token){
