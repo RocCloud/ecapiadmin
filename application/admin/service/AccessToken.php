@@ -23,8 +23,8 @@ class AccessToken
         $this->tokenUrl = $url;
     }
 
-    public function get(){var_dump(2);die();
-        $token = $this->getFromCache();
+    public function get(){
+        $token = $this->getFromCache();var_dump(2);die();
         if(!$token){
             return $this->getFromWxServer();
         }else{
