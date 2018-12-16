@@ -47,7 +47,7 @@ class Order extends Base
 
     //发送模板消息
     public function delivery($id){
-        $data = input('post.');
+        $data = input('param.');
         $validate = validate('IDMustBePostiveInt');
         if(!$validate->check($data)){
             $this->result(null,0,$validate->getError());

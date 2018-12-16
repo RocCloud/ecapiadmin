@@ -66,7 +66,7 @@
   //发货
   function delivery(obj){
       url = $(obj).attr('delivery_url');
-      layer.confirm('确认要删除吗？',function(index){
+      layer.confirm('确认发货吗？',function(index){
           $.ajax({
               type: 'POST',
               url: url,
