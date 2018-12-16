@@ -39,7 +39,7 @@ class AccessToken
         if(!$token){
             return false;
         }
-        return $token;
+        return json_decode($token,true);;
     }
 
     //从微信服务器中获取access_token
