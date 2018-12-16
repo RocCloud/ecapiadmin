@@ -39,7 +39,7 @@ class AccessToken
         if(!$token){
             return null;
         }
-        return $token
+        return $token;
     }
 
     //从微信服务器中获取access_token
