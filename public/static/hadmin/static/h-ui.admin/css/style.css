@@ -1,0 +1,8 @@
+@charset "utf-8";
+/* 你自己的样式 */
+
+.msg{color: red; text-align: center;}
+.text-20size{font-size: 20px; cursor: pointer;}
+.hidden-self{display: none}
+.size-125{width: 125px;height: 125px}
+.my_center{display: table-cell;text-align:center;vertical-align:middle}
