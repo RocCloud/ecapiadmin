@@ -26,11 +26,11 @@ class AccessToken
     public function get()
     {
         $token = $this->getFromCache();
-        if(empty($token)) {
-            return $this->getFromWxServer();
-        } else {
+//        if(empty($token)) {
+            //return $this->getFromWxServer();
+        //} else {
             return $token;
-        }
+        //}
     }
 
     //从缓存中获取access_token
