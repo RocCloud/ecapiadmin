@@ -18,9 +18,9 @@ class AccessToken
 
     function __construct()
     {
-        $url = config('wx.access_token_url');var_dump(2);die();
+        $url = config('wx.access_token_url');
         $url = sprintf($url,config('wx.app_id'),config('wx.app_secret'));
-        $this->tokenUrl = $url;
+        $this->tokenUrl = $url;var_dump(2);die();
     }
 
     public function get(){
