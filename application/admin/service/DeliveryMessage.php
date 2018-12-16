@@ -17,12 +17,13 @@ class DeliveryMessage extends WxMessage
     const DELIVERY_MSG_ID = 'sc9ZhwZ_ejgAEZNfpL5Us1PZguD06_rFycW4Ysktooc';
 
     public function sendDeliveryMessage($order,$tplJumpPage = ''){
+        var_dump(2);die();
         if(!$order){
             return ['code'=>0,'msg'=>'订单不存在，请检查ID'];
         }
         $this->tplID = self::DELIVERY_MSG_ID;
         $this->formID = $order->prepay_id;
-        $this->page = $tplJumpPage;var_dump(2);die();
+        $this->page = $tplJumpPage;
         $this->prepareMessageData($order);
         $this->emphasisKeyWord = 'keyword2.DATA'; var_dump(1);die();
         return parent::sendMessage($this->getUserOpenID($order->user_id));
