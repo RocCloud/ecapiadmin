@@ -17,7 +17,6 @@ class DeliveryMessage extends WxMessage
     const DELIVERY_MSG_ID = 'sc9ZhwZ_ejgAEZNfpL5Us1PZguD06_rFycW4Ysktooc';
 
     public function sendDeliveryMessage($order,$tplJumpPage = ''){
-        var_dump(2);die();
         if(!$order){
             return ['code'=>0,'msg'=>'订单不存在，请检查ID'];
         }

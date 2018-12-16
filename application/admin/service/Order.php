@@ -31,7 +31,7 @@ class Order
             return ['code'=>0,'msg'=>'订单未付款或已更新'];
         }
         $order->status = OrderStatusEnum::DELIVERED;
-        $order->save();
+        $order->save();var_dump(2);die();
         $message = new DeliveryMessage();
         return $message->sendDeliveryMessage($order,$jumpPage);
     }
