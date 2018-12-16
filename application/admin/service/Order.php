@@ -22,6 +22,7 @@ class Order
 
     //发送模板消息
     public function delivery($orderID,$jumpPage=''){
+        var_dump(0);die();
         try{
             $order=OrderModel::where('id','=',$orderID)->find();
         }catch (\Exception $e){
