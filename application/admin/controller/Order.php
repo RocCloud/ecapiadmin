@@ -57,7 +57,7 @@ class Order extends Base
         if(is_array($success) && $success['code'] == 0){
             return $this->result(null,$success['code'],$success['msg']);
         }else{
-            return $this->result(null,1,'success');
+            return $this->result(['jump_url' => url('Order/index')],1,"success");
         }
     }
 }
