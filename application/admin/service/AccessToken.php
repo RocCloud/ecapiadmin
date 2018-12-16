@@ -25,7 +25,7 @@ class AccessToken
 
     public function get(){
         $token = $this->getFromCache();
-        if($token->isEmpty()){
+        if(empty($token)){
             return $this->getFromWxServer();
         }else{
             return $token;
@@ -38,7 +38,7 @@ class AccessToken
         if($token){
             return $token;
         }
-        return [];
+        return null;
     }
 
     //从微信服务器中获取access_token
