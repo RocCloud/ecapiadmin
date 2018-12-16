@@ -24,8 +24,8 @@ class AccessToken
     }
 
     public function get(){
-        $token = $this->getFromCache();
-        if(!$token){var_dump(2);die();
+        $token = $this->getFromCache();var_dump($token);die();
+        if(!$token){
             return $this->getFromWxServer();
         }else{
             return $token;
