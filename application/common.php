@@ -79,7 +79,7 @@ function orderStatus($status){
     }elseif ($status == 2){
         $str = "<a href='javascript:' title='修改状态'><span class ='label label-primary redius'>已支付</span></a>";
     }elseif ($status == 3){
-        $str = "<a href='javascript:' title='修改状态'><span class ='label label-primary redius'>已发货</span></a>";
+        $str = "<a href='javascript:' title='修改状态'><span class ='label label-secondary redius'>已发货</span></a>";
     }elseif ($status == 4){
         $str = "<a href='javascript:' title='修改状态'><span class ='label label-danger redius'>异常：已支付，但库存不足</span></a>";
     }elseif ($status == 5){
