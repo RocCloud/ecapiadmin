@@ -18,7 +18,7 @@ class AccessToken
 
     function __construct()
     {
-        $url = config('wx.access_token_url');
+        $url = config('wx.access_token_url');var_dump(2);die();
         $url = sprintf($url,config('wx.app_id'),config('wx.app_secret'));
         $this->tokenUrl = $url;
     }
@@ -42,9 +42,9 @@ class AccessToken
     }
 
     //从微信服务器中获取access_token
-    private function getFromWxServer(){var_dump(2);die();
+    private function getFromWxServer(){
         $token = curl_get($this->tokenUrl);
-        $token = json_decode($token,true);var_dump($token);die();
+        $token = json_decode($token,true);
         if(!$token){
             return ['code'=>0,'msg'=>'获取AccessToken异常'];
         }
