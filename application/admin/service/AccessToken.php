@@ -20,10 +20,10 @@ class AccessToken
     {
         $url = config('wx.access_token_url');
         $url = sprintf($url,config('wx.app_id'),config('wx.app_secret'));
-        $this->tokenUrl = $url;var_dump(2);die();
+        $this->tokenUrl = $url;
     }
 
-    public function get(){
+    public function get(){var_dump(2);die();
         $token = $this->getFromCache();
         if(!$token){
             return $this->getFromWxServer();
