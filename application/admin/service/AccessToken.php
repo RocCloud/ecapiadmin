@@ -25,10 +25,10 @@ class AccessToken
 
     public function get(){
         $token = $this->getFromCache();
-        if(empty($token)){
-            return $this->getFromWxServer();
-        }else{
+        if($token){
             return $token;
+        }else{
+            return $this->getFromWxServer();
         }
     }
 
