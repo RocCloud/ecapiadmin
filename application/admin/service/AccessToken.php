@@ -25,6 +25,7 @@ class AccessToken
 
     public function get(){
         $token = $this->getFromCache();
+        $token=$token->toArray();
         if($token){
             return $token;
         }else{
