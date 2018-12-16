@@ -44,7 +44,7 @@ class AccessToken
     //从微信服务器中获取access_token
     private function getFromWxServer(){
         $token = curl_get($this->tokenUrl);
-        $token = json_decode($token,true);
+        $token = json_decode($token,true);var_dump($token);die();
         if(!$token){
             return ['code'=>0,'msg'=>'获取AccessToken异常'];
         }
