@@ -38,7 +38,7 @@ class AccessToken
         if($token){
             return $token;
         }
-        return null;
+        return [];
     }
 
     //从微信服务器中获取access_token
