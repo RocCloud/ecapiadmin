@@ -25,18 +25,18 @@ class AccessToken
 
     public function get(){
         $token = $this->getFromCache();
-        $token=$token->toArray();
-        if($token){
-            return $token;
-        }else{
+        if(!$token){
             return $this->getFromWxServer();
+        }
+        else{
+            return $token;
         }
     }
 
     //从缓存中获取access_token
     private function getFromCache(){
         $token = cache(self::TOKEN_CACHED_KEY);
-        if($token){
+        if(!$token){
             return $token;
         }
         return null;
