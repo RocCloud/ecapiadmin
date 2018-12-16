@@ -24,8 +24,9 @@ class WxMessage
     function __construct()
     {
         $accessToken = new AccessToken();
-        $token = $accessToken->get();
+        $token = $accessToken->get();var_dump($token);die();
         $this->sendUrl = sprintf(config('wx.send_template_message_url'),$token);
+
     }
 
     protected function sendMessage($openID){
