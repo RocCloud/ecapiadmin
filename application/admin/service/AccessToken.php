@@ -23,23 +23,23 @@ class AccessToken
         $this->tokenUrl = $url;
     }
 
-    public function get(){
+    public function get()
+    {
         $token = $this->getFromCache();
-        if(!$token){
+        if(!$token) {
             return $this->getFromWxServer();
-        }
-        else{
+        } else {
             return $token;
         }
     }
 
     //从缓存中获取access_token
-    private function getFromCache(){
+    private function getFromCache() {
         $token = cache(self::TOKEN_CACHED_KEY);
-        if($token){
-            return $token;
+        if(!$token){
+            return false;
         }
-        return null;
+        return $token;
     }
 
     //从微信服务器中获取access_token
