@@ -36,9 +36,9 @@ class AccessToken
     //从缓存中获取access_token
     private function getFromCache() {
         $token = cache(self::TOKEN_CACHED_KEY);
-        if(empty($token)){
-            return null;
-        }
+        //if(empty($token)){
+            //return null;
+        //}
         return $token;
     }
 
