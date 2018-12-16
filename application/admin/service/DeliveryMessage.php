@@ -24,7 +24,7 @@ class DeliveryMessage extends WxMessage
         $this->formID = $order->prepay_id;
         $this->page = $tplJumpPage;
         $this->prepareMessageData($order);
-        $this->emphasisKeyWord = 'keyword2.DATA'; var_dump(1);die();
+        $this->emphasisKeyWord = 'keyword2.DATA';
         return parent::sendMessage($this->getUserOpenID($order->user_id));
     }
 
